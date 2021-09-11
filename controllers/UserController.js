@@ -1,6 +1,7 @@
 const User = require('../models/User');
 const { body } = require('express-validator');
 const faker = require('faker');
+const {userValidator} = require('../validators');
 
 
 class UserController {
@@ -57,9 +58,9 @@ class UserController {
 
     // POST /users
     async create(req, res, next) {
-        body(req.body.id).isEmail();
         try {
-            const userSave = await User.create(req.body);
+          const validated = userValidator.validateCreateUsers(req.body)
+          const userSave = await User.create(validated);
             res.json({
                 success: true,
                 user: userSave
@@ -91,7 +92,8 @@ class UserController {
     //DELETE /users/:id
     async delete(req, res, next) {
         try {
-            const userDelete = await User.deleteOne({ id: req.params.id });
+          const validated = userValidator.validateDeleteUsers(req.params)
+            const userDelete = await User.deleteOne({ id: validated.id });
             if (!userDelete.deletedCount) {
                 return res.json({
                     success: false,
