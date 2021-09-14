@@ -36,7 +36,7 @@ class UserController {
     // GET /users/:id
     async show(req, res, next) {
         try {
-            const user = await User.findOne({ id: req.params.id });
+            const user = await User.findOne({ id: req.params.id});
             if (user == null) {
                 return res.json({
                     success: false,
@@ -57,7 +57,7 @@ class UserController {
 
     // POST /users
     async create(req, res, next) {
-        body(req.body.id).isEmail();
+        
         try {
             const userSave = await User.create(req.body);
             res.json({

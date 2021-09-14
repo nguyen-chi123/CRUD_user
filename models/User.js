@@ -6,11 +6,11 @@ const User = new Schema({
     username: {type: String, required: true, trim: true, maxlength: 100,},
     password: {
         type: String, required: true,
-        match: [/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/, 'minimum eight characters, at least one letter and one number']
+        // match: [/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/, 'minimum eight characters, at least one letter and one number']
     },
     email: {
         type: String, required: true, 
-        match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'invalid email, please enter again!' ], 
+        // match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'invalid email, please enter again!' ], 
         unique: true,
     },
     birthday: {
