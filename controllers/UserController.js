@@ -2,7 +2,6 @@ const User = require('../models/User');
 const { body } = require('express-validator');
 const faker = require('faker');
 
-
 class UserController {
     // GET /users
     async index(req, res, next) {
