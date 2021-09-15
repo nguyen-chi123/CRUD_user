@@ -1,5 +1,5 @@
 const _ = require('lodash');
-
+const { check, checkSchema } = require('express-validator');
 class UserValidator {
     validateCreateUser(req, res, next) {
         let {
@@ -49,16 +49,12 @@ class UserValidator {
     }
 
     validateIdUser(req, res, next) {
-        let {id} = req.params;
-        id = parseInt(id);
-        if (!_.isInteger(id))
-            return res.status(400).json({
-                success: false,
-                mess: `Giá trị id ${id} cần truyền dưới dạng số.`
-            });
-
-        next();
+        return [
+            check(req.params.id).isNumeric(),
+            next()
+        ];
     }
+
 }
 
 module.exports = new UserValidator();

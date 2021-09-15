@@ -56,7 +56,7 @@ class UserController {
 
     // POST /users
     async create(req, res, next) {
-        
+    
         try {
             const userSave = await User.create(req.body);
             res.json({
