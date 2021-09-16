@@ -1,25 +1,26 @@
 const express = require('express');
 const userController = require('../controllers/UserController');
-const { userValidator, expressValidate } = require('../middlewares');
+const {validateMiddleware} = require('../middlewares');
+const {userValidator} = require('../validators');
 const router = express.Router();
-const { check, checkSchema, validationResult } = require('express-validator');
-const User = require('../models/User');
-const { NotExtended } = require('http-errors');
 
 router.get('/fake-data', userController.fakeData);
 /* CRUD */
-router.put('/:id', userValidator.validateCreateUser, userController.update);
-router.get('/:id', userController.show);
-router.delete('/:id', userValidator.validateIdUser, userController.delete);  
-// router.post('/', 
-//     expressValidate.checkValidator,
-//     expressValidate.validateResult,
-//     userController.create);
+router.put('/:id',
+  userValidator.validateUpdateUser,
+  validateMiddleware,
+  userController.update);
 
-router.post('/', 
-    expressValidate.validateSchema,
-    expressValidate.validateResult,
-    userController.create);
+router.post('/',
+  userValidator.validateCreateUser,
+  validateMiddleware,
+  userController.create);
+
+
+router.get('/:id', userController.show);
+
+router.delete('/:id', userValidator.validateIdUser, userController.delete);
+
 router.get('/', userController.index);
 
 
