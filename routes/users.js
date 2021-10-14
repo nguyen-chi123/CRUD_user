@@ -1,21 +1,26 @@
 const express = require('express');
 const userController = require('../controllers/UserController');
-const { userValidator, expressValidate } = require('../middlewares');
+const {validateMiddleware} = require('../middlewares');
+const {userValidator} = require('../validators');
 const router = express.Router();
 
 router.get('/fake-data', userController.fakeData);
 /* CRUD */
-router.put('/:id', userValidator.validateCreateUser, userController.update);
+router.put('/:id',
+  userValidator.validateUpdateUser,
+  validateMiddleware,
+  userController.update);
+
+router.post('/',
+  userValidator.validateCreateUser,
+  validateMiddleware,
+  userController.create);
+
+
 router.get('/:id', userController.show);
-router.delete('/:id', userValidator.validateIdUser, userController.delete);  
-// router.post('/', 
-//     expressValidate.checkValidator,
-//     expressValidate.validateResult,
-//     userController.create);
-router.post('/', 
-    expressValidate.validateSchema,
-    expressValidate.validateResult,
-    userController.create);
+
+router.delete('/:id', userValidator.validateIdUser, userController.delete);
+
 router.get('/', userController.index);
 
 

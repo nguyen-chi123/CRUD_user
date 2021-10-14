@@ -1,6 +1,4 @@
-const userValidator = require('./UserValidator');
-const { expressValidate } = require('./ExpressValidate');
+const {validateMiddleware} = require('./ValidateMiddleware');
 module.exports = {
-    userValidator,
-    expressValidate
+  validateMiddleware
 }
