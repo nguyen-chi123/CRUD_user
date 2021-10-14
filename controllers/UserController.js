@@ -10,7 +10,7 @@ class UserController {
         const skipIndex = (pageNumber - 1) * perPage;
         try {
             const total = await User.count();
-            var users = await User.find()
+            let users = await User.find()
                 .sort({ _id: 1 })
                 .skip(skipIndex)
                 .limit(perPage);
@@ -32,7 +32,7 @@ class UserController {
         }
     }
     
-    // GET /users/:id
+    // GET /users/:id /////
     async show(req, res, next) {
         try {
             const user = await User.findOne({ id: req.params.id});
@@ -56,7 +56,6 @@ class UserController {
 
     // POST /users
     async create(req, res, next) {
-    
         try {
             const userSave = await User.create(req.body);
             res.json({
