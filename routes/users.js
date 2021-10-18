@@ -23,6 +23,7 @@ router.delete('/:id', userValidator.validateIdUser, userController.delete);
 
 router.get('/', userController.index);
 
+//// edit
 
 module.exports = router;
 
